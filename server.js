@@ -23,6 +23,40 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
+app.get('/api/', function(req, res) {
+  var date2 = new Date(); 
+  var milliseconds =  Date.UTC(date2.getUTCFullYear(), 
+                            date2.getUTCMonth(), 
+                            date2.getUTCDate(),
+                            date2.getUTCHours(), 
+                            date2.getUTCMinutes(), 
+                            date2.getUTCSeconds());
+  var date = new Date(milliseconds);
+  var utc = date.toUTCString();
+  var result = {"unix": milliseconds, "utc": utc};    
+  
+  console.log(result);
+  res.json(result)
+  //var resDate = new Date();
+  //res.json({ unix: resDate.valueOf(), utc: resDate.toUTCString() });
+});
+
+app.get('/api/:date?', function(req, res) {
+  
+  
+  console.log({"milliseconds": milliseconds});
+  if (isNaN(parseInt(req.params.date))){
+      res.json({error : "Invalid Date"})
+  }
+  var milliseconds  = parseInt(req.params.date);
+  var date = new Date(milliseconds);
+  var utc = date.toUTCString();
+  //"Fri, 25 Dec 2015 00:00:00 GMT"
+  var result = {"unix": milliseconds, "utc": utc};    
+  
+  console.log(result);
+  res.json(result)
+});
 
 
 
